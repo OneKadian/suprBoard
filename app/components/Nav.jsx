@@ -9,19 +9,19 @@ import { usePathname } from "next/navigation";
 import { RxCross1 } from "react-icons/rx";
 
 const navigation = [
-  { name: "Features", href: "/#features" },
-  { name: "Testimonials", href: "/#testimonials" },
-  { name: "FAQ?", href: "/#faq" },
+  { name: "Library", href: "/library" },
+  // { name: "Testimonials", href: "/#testimonials" },
+  // { name: "FAQ?", href: "/#faq" },
 ];
 
 const Nav = ({ userStatus }) => {
   const pathname = usePathname();
   const membersNavigation = [
     { name: "Home", href: "/" },
-    {
-      name: "Billing",
-      href: "https://billing.stripe.com/p/login/test_3csaG2csp7sj8wwbII",
-    },
+    // {
+    //   name: "Library",
+    //   href: "/library",
+    // },
   ];
 
   const memoizedNavigation = useMemo(() => {
