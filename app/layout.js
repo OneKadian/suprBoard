@@ -10,7 +10,7 @@ export const metadata = {
   description: "Launch your Saas Today",
 };
 
-export default function RootLayout({ children, className = "" }) {
+export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
