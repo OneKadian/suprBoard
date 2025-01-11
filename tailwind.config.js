@@ -89,6 +89,7 @@ module.exports = {
           900: "#303030",
         },
         primary: {
+          DEFAULT: "#4790FC", // Added from project 2
           50: "#FCFCFC",
           100: "#FCFCFC",
           200: "#FCFCFC",
@@ -102,6 +103,7 @@ module.exports = {
           950: "#595959",
         },
         secondary: {
+          DEFAULT: "#424656", // Added from project 2
           50: "#FFF9F0",
           100: "#FFF5E5",
           200: "#FFEBCC",
@@ -114,6 +116,7 @@ module.exports = {
           900: "#8A5300",
           950: "#663D00",
         },
+        tertiary: "#495E8E", // Added from project 2
         badge: "#F1F5F9",
         badgeText: "#475569",
       },

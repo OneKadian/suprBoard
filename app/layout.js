@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
 
         {/* <main className={`main relative overflow-hidden`}> */}
         <body className={inter.className}>
-          <Header />
+          {/* <Header /> */}
           {children}
         </body>
         {/* </main> */}
