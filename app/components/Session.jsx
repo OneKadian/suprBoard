@@ -2,37 +2,40 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import live from "../assets/live.svg";
-import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
 
-const Session = ({ userName, setUserName, isLive, setIsLive, params }) => {
-  const router = useRouter();
+const Session = ({ userName, setUserName, isLive, setIsLive }) => {
   const [show, setShow] = useState(false);
-const [buttonText, setButtonText] = useState("Copy");
+  const [buttonText, setButtonText] = useState("Copy");
+
+  // Initialize session state
+  useEffect(() => {
+    setIsLive(false);
+  }, []);
+
   const startSession = () => {
     setShow(false);
     setIsLive(true);
-    // Instead of generating a new route, we'll use the current URL
     toast("Session started! Share the link with others to collaborate.", {
       icon: "🔴",
       style: { borderRadius: "10px", background: "#333", color: "#fff" },
     });
   };
 
-  useEffect(() => {
-    if (isLive) {
-      setShow(true);
-    }
-  }, [isLive]);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(getCurrentUrl());
+    setButtonText("Copied!");
+    toast("Copied to Clipboard", {
+      icon: "📋",
+      style: {
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
+      },
+    });
+  };
 
-    const handleCopy = () => {
-      navigator.clipboard.writeText(getCurrentUrl());
-      setButtonText("Copied!");
-    //   setTimeout(() => setButtonText("Copy"), 500); // Reset the text back to "Copy" after 0.5 seconds
-    };
-
-  // Get the current URL for sharing
   const getCurrentUrl = () => {
     if (typeof window !== "undefined") {
       return window.location.href;
@@ -76,7 +79,9 @@ const [buttonText, setButtonText] = useState("Copy");
                   </button>
                 </div>
                 <div
-                  className={`flex flex-col gap-4 ${isLive ? "items-start" : "items-center"}`}
+                  className={`flex flex-col gap-4 ${
+                    isLive ? "items-start" : "items-center"
+                  }`}
                 >
                   <div className="flex justify-center w-full">
                     <Image
@@ -117,22 +122,6 @@ const [buttonText, setButtonText] = useState("Copy");
                           readOnly
                           className="border border-gray-300 text-gray-800 rounded-lg p-2 w-[300px] cursor-text appearance-none focus:outline-none"
                         />
-                        {/* <button
-                          onClick={() => {
-                            navigator.clipboard.writeText(getCurrentUrl());
-                            toast("Copied to Clipboard", {
-                              icon: "📋",
-                              style: {
-                                borderRadius: "10px",
-                                background: "#333",
-                                color: "#fff",
-                              },
-                            });
-                          }}
-                          className="bg-primary hover:bg-opacity-70 text-white font-bold py-2 px-4 rounded-full"
-                        >
-                          Copy
-                        </button> */}
                         <button
                           onClick={handleCopy}
                           className="bg-primary hover:bg-opacity-70 text-white font-bold py-2 px-4 rounded-full"
@@ -143,27 +132,7 @@ const [buttonText, setButtonText] = useState("Copy");
                     </div>
                   )}
 
-                  {isLive ? (
-                    <div className="flex justify-center w-full">
-                      <button
-                        onClick={() => {
-                          setIsLive(false);
-                          setShow(false);
-                          toast("Session ended", {
-                            icon: "⏹️",
-                            style: {
-                              borderRadius: "10px",
-                              background: "#333",
-                              color: "#fff",
-                            },
-                          });
-                        }}
-                        className="bg-red-500 hover:bg-opacity-70 text-white font-bold py-2 px-4 rounded-full"
-                      >
-                        Stop Session
-                      </button>
-                    </div>
-                  ) : (
+                  {!isLive && (
                     <button
                       onClick={startSession}
                       className="bg-primary hover:bg-opacity-70 text-white font-bold py-2 px-4 rounded-full"
