@@ -147,6 +147,7 @@ export default function Page({ params }) {
         canvasColor={canvasColor}
         strokeWidth={strokeWidth}
         updateCanvas={updateCanvas}
+        roomId={roomId}
       />
     </div>
   );

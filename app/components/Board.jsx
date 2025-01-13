@@ -14,7 +14,9 @@ const Board = ({ canvasRef,
     canvasColor,
     strokeWidth,
     updateCanvas,
-    socket, }) => {
+    socket,
+roomId
+}) => {
     const [isDrawing, setIsDrawing] = useState(false)
     const [eraser, setEraser] = useState(false)
 
@@ -261,33 +263,42 @@ const Board = ({ canvasRef,
 
 
     return (
-        <div onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            onTouchStart={handleMouseDown}
-            onTouchMove={handleMouseMove}
-            onTouchEnd={handleMouseUp}
-            className='absolute top-0 left-0 w-screen h-screen'
-        >
-            <canvas
-                ref={canvasRef}
-                className={` absolute border-2 border-black  w-screen h-screen ${tool === "eraser" ? "cursor-none" : "cursor-crosshair"} `}
-                style={{ backgroundColor: canvasColor }}
-            />
-            <div className=" eraser pointer-events-none bg-secondary"
-                style={{
-                    display: tool === "eraser" ? "block" : "none",
-                    left: eraser.x,
-                    top: eraser.y,
-                    minHeight: `30px`,
-                    minWidth: `30px`,
-                    height: `${strokeWidth}px`,
-                    width: `${strokeWidth}px`,
-                }
-                }
-            />
+      <div
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onTouchStart={handleMouseDown}
+        onTouchMove={handleMouseMove}
+        onTouchEnd={handleMouseUp}
+        className="absolute top-0 left-0 w-screen h-screen"
+      >
+        <div className="w-full flex mt-[85px] items-center bg-gray-800 justify-center">
+          <button
+            onClick={console.log(elements)}
+            className="bg-primary whitespace-nowrap hover:bg-opacity-70 text-white font-bold py-2 px-4 rounded-full"
+          >
+            Save Board
+          </button>
         </div>
-    )
+        <canvas
+          ref={canvasRef}
+          className={` absolute border-2 border-black  w-screen h-screen ${tool === "eraser" ? "cursor-none" : "cursor-crosshair"} `}
+          style={{ backgroundColor: canvasColor }}
+        />
+        <div
+          className=" eraser pointer-events-none bg-secondary"
+          style={{
+            display: tool === "eraser" ? "block" : "none",
+            left: eraser.x,
+            top: eraser.y,
+            minHeight: `30px`,
+            minWidth: `30px`,
+            height: `${strokeWidth}px`,
+            width: `${strokeWidth}px`,
+          }}
+        />
+      </div>
+    );
 }
 
 export default Board
